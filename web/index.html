@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resume Checker Agent</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <aside class="panel controls" aria-label="Analysis controls">
+          <div class="brand" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span class="mark">RC</span>
+              <div>
+                <h1>Resume Checker</h1>
+                <p>Software roles in hardware companies</p>
+              </div>
+            </div>
+            <button id="themeToggle" class="btn secondary" style="padding: 4px 8px; font-size: 1.2rem; background: none; border: none; cursor: pointer;">🌙</button>
+          </div>
+
+
+          <label for="resumeText">Resume text</label>
+          <textarea id="resumeText" spellcheck="false" placeholder="Paste your resume text here"></textarea>
+
+          <label for="resumeFile">Or upload PDF</label>
+          <input id="resumeFile" type="file" accept="application/pdf,.pdf">
+          <div id="extractionBox" class="extraction" hidden>
+            <strong id="extractionTitle">PDF extraction</strong>
+            <p id="extractionMeta"></p>
+            <ul id="extractionWarnings"></ul>
+          </div>
+
+          <label for="seniority">Seniority / Experience</label>
+          <select id="seniority">
+            <option value="junior">Junior (0-2 years)</option>
+            <option value="mid">Mid-level (3-5 years)</option>
+            <option value="senior">Senior (6+ years)</option>
+          </select>
+
+          <label for="jobDescription">Job description</label>
+          <textarea id="jobDescription" spellcheck="false" placeholder="Optional"></textarea>
+
+          <button id="analyzeButton" type="button">
+            <span aria-hidden="true">></span>
+            Analyze
+          </button>
+          <p id="status" class="status" role="status"></p>
+        </aside>
+
+        <section class="results" aria-live="polite">
+          <div class="score-band">
+            <div>
+              <p class="eyebrow">INR 40 LPA+ readiness</p>
+              <h2 id="score">Awaiting resume</h2>
+              <p id="readiness">Paste resume text and run analysis.</p>
+            </div>
+            <div class="score-ring">
+              <span id="scoreNumber">--</span>
+            </div>
+          </div>
+
+          <div class="grid two">
+            <section class="panel">
+              <h3>Role Fit</h3>
+              <div id="bestFit" class="stack muted">No analysis yet.</div>
+            </section>
+            <section class="panel">
+              <h3>Company Fit</h3>
+              <div id="companyFit" class="stack muted">No analysis yet.</div>
+            </section>
+          </div>
+
+
+          <div class="targeted-section">
+            <h2 class="section-title">Targeted Analysis</h2>
+            <p>Select a target role and company to view tailored strategy.</p>
+            <div class="target-controls">
+              <div>
+                <label for="targetRole">Target role</label>
+                <select id="targetRole"></select>
+              </div>
+              <div>
+                <label for="targetCompany">Target company</label>
+                <select id="targetCompany"></select>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button id="strategyButton" type="button" class="btn primary" style="height: 100%;">Generate Strategy</button>
+                <button id="exportButton" type="button" class="btn secondary" style="height: 100%; display: none;" onclick="window.print()">Download PDF</button>
+              </div>
+            </div>
+            <p id="strategyStatus" class="status"></p>
+
+            <div id="targetResults" hidden>
+              <div class="grid two">
+                <section class="panel">
+                  <h3>Score Breakdown</h3>
+                  <div id="breakdown" class="bars"></div>
+                </section>
+
+                <section class="panel company-stats">
+                  <h3>Interview Insights</h3>
+                  <div class="stats-grid">
+                    <div class="stat-box">
+                      <span class="stat-label">Process Length</span>
+                      <strong id="statRounds">--</strong>
+                    </div>
+                    <div class="stat-box">
+                      <span class="stat-label">Acceptance Rate</span>
+                      <strong id="statAcceptance">--</strong>
+                    </div>
+                    <div class="stat-box full">
+                      <span class="stat-label">Est. Compensation</span>
+                      <strong id="statSalary">--</strong>
+                    </div>
+                    <div class="stat-box full">
+                      <span class="stat-label">Core Technical Focus</span>
+                      <p id="statFocus">--</p>
+                    </div>
+                    <div class="stat-box full">
+                      <span class="stat-label">Culture & Values</span>
+                      <p id="statCulture">--</p>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="grid three">
+                <section class="panel">
+                  <h3>Pros</h3>
+                  <ul id="pros"></ul>
+                </section>
+                <section class="panel">
+                  <h3>Cons</h3>
+                  <ul id="cons"></ul>
+                </section>
+                <section class="panel">
+                  <h3>Missing Skills</h3>
+                  <div id="missing" class="chips"></div>
+                </section>
+              </div>
+
+              <section class="panel">
+                <h3>Priority Actions</h3>
+                <ol id="actions"></ol>
+              </section>
+
+              <section class="panel">
+                <h3>Highest-Probability Path</h3>
+                <ol id="path"></ol>
+              </section>
+
+              <section class="panel">
+                <h3>Roadmap</h3>
+                <div id="roadmap" class="roadmap"></div>
+              </section>
+
+              <div class="grid two">
+                <section class="panel">
+                  <h3>Recommended Projects</h3>
+                  <ul id="projects"></ul>
+                </section>
+                <section class="panel">
+                  <h3>Bullet Rewrites</h3>
+                  <div id="rewrites" class="rewrites"></div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
