@@ -46,8 +46,8 @@ You need Python 3.9+ and pip installed. If you want the OCR fallback to work on 
 ### 2. Installation
 Clone the repository and install the required dependencies:
 ```bash
-git clone https://github.com/YOUR_USERNAME/Resume_checker.git
-cd Resume_checker
+git clone https://github.com/Prathmax45/MALLOC-job.git
+cd MALLOC-job
 
 # Create a virtual environment (recommended)
 python -m venv .venv
