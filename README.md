@@ -1,4 +1,4 @@
-# Intelligent Resume Checker & Strategy Generator
+# Malloc(Job) 🧠
 
 A modern, high-performance web application designed to evaluate software engineering resumes against highly specialized domains (Hardware, Semiconductor, GPU Software, AI Infrastructure, Compilers, and Systems Software). 
 
