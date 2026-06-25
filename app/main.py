@@ -11,7 +11,7 @@ from app.resume_agent.pdf_reader import extract_pdf
 ROOT = Path(__file__).resolve().parent.parent
 WEB_DIR = ROOT / "web"
 
-app = FastAPI(title="Resume Checker API")
+app = FastAPI(title="Malloc(Job) API")
 
 class AnalyzeBaseRequest(BaseModel):
     resumeText: str
